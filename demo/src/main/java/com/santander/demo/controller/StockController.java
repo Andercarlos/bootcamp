@@ -30,37 +30,17 @@ public class StockController {
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StockDTO>> findAll(){
-        List<StockDTO> lista = new ArrayList<>();
-        StockDTO dto = new StockDTO();
-        dto.setId(1L);
-        dto.setName("Magazine");
-        dto.setPrice(100D);
-        dto.setDate(LocalDate.now());
-        dto.setVariation(10D);
-        lista.add(dto);
-
-    return ResponseEntity.ok(lista);
+            return ResponseEntity.ok(service.findAll());
     }
+
+
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<StockDTO> findById(@PathVariable Long id){
-        List<StockDTO> lista = new ArrayList<>();
-        StockDTO dto = new StockDTO();
-        dto.setId(1L);
-        dto.setName("Magazine");
-        dto.setPrice(100D);
-        dto.setDate(LocalDate.now());
-        dto.setVariation(10D);
-        lista.add(dto);
-
-        StockDTO dto1 = new StockDTO();
-        dto1.setId(2L);
-        dto1.setName("Kabum");
-        dto1.setPrice(200D);
-        dto1.setDate(LocalDate.now());
-        dto1.setVariation(20D);
-        lista.add(dto1);
-        StockDTO selecionado = lista.stream().filter(x -> x.getId().compareTo(id)==0).findFirst().get();
-        return ResponseEntity.ok(selecionado);
+        return ResponseEntity.ok(service.findById(id));
+    }
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<StockDTO> delete(@PathVariable Long id){
+        return ResponseEntity.ok(service.delete(id));
     }
 
 }

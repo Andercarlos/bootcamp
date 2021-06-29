@@ -10,9 +10,12 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class ExceptionHandlers extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(BusinessException.class)
+    protected ResponseEntity<ExceptionResponse> handlerSecurity(BusinessException e) {
+        return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ExceptionResponse(e.getMessage()));
+    }
 
-    protected ResponseEntity<ExceptionResponse> handlerSecurity(BusinessException e){
-
-    return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body(new ExceptionResponse(e.getMessage()));
+    @ExceptionHandler(NotFoundException.class)
+    protected ResponseEntity<ExceptionResponse> handlerSecurity(NotFoundException e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ExceptionResponse(e.getMessage()));
     }
 }
