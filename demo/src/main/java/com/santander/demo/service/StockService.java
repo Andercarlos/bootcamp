@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,12 +59,16 @@ public class StockService {
     public StockDTO findById(Long id) {
         return repository.findById(id).map(mapper::toDto).orElseThrow(NotFoundException::new);
     }
-
+@Transactional
     public StockDTO delete(Long id) {
         StockDTO dto = this.findById(id);
         repository.deleteById(id);
         return dto;
         }
+@Transactional
+    public List<StockDTO> findByToday() {
+        return repository.findByToday(LocalDate.now()).map(mapper::toDto).orElseThrow(NotFoundException::new);
+    }
 }
 
 
