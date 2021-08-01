@@ -46,6 +46,8 @@ public class StockController {
     public ResponseEntity<StockDTO> delete(@PathVariable Long id){
         return ResponseEntity.ok(service.delete(id));
     }
+
+
     @GetMapping(value = "/today",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<StockDTO>> findByToday(){
         return ResponseEntity.ok(service.findByToday());
